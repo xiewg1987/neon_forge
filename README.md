@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 霓虹工坊 / NeonForge
 
-## Getting Started
+暗色霓虹风的 ComfyUI 工作流、提示词与模型发现站前端骨架。对照 Figma 信息架构，静态页面 + mock 数据，不含登录 / 上传 / 后端。
 
-First, run the development server:
+## 技术栈
+
+- Next.js（App Router）
+- TypeScript
+- Tailwind CSS v4
+- pnpm
+
+## 启动
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+浏览器打开 [http://localhost:3000](http://localhost:3000)。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 路由
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| 路径 | 说明 |
+| --- | --- |
+| `/` | 发现（综合） |
+| `/workflows` | 工作流列表 |
+| `/prompts` | 提示词列表 |
+| `/models` | 模型库 |
+| `/workflows/[id]` | 工作流详情（示例：`/workflows/cyber-neon`） |
 
-## Learn More
+## 设计 token
 
-To learn more about Next.js, take a look at the following resources:
+| Token | 色值 |
+| --- | --- |
+| bg | `#0F0F13` |
+| card | `#1A1A22` |
+| border | `#2A2A35` |
+| accent | `#F472B6` |
+| lime | `#A3E635` |
+| text | `#F8FAFC` |
+| muted | `#94A3B8` |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+定义见 `src/app/globals.css`（`--nf-*` / Tailwind `nf-*`）。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 说明
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 上传 / 登录按钮为禁用态（即将推出）
+- 筛选与卡片均为前端静态交互
+- 请保留仓库中既有的 affinity / 设计相关目录（若存在）

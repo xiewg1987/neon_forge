@@ -1,69 +1,78 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useMemo, useState } from "react";
+import {
+  DiscoverCard,
+  promptToDiscover,
+  workflowToDiscover,
+} from "@/components/cards/DiscoverCard";
+import {
+  DiscoverFilters,
+  type KindFilter,
+  type SortTab,
+} from "@/components/home/DiscoverFilters";
+import { DiscoverBanner } from "@/components/home/DiscoverBanner";
+import { prompts } from "@/lib/data/prompts";
+import { STYLE_LABELS, type StyleLabel } from "@/lib/data/styles";
+import { workflows } from "@/lib/data/workflows";
+
+const PROMPT_TINTS = [
+  "#292E38",
+  "#3A2E48",
+  "#332838",
+  "#2E3A30",
+  "#331F38",
+  "#2A2438",
+];
+
+export default function DiscoverPage() {
+  const [sort, setSort] = useState<SortTab>("推荐");
+  const [kind, setKind] = useState<KindFilter>("全部");
+  const [style, setStyle] = useState<StyleLabel>(STYLE_LABELS[0]);
+
+  const feed = useMemo(() => {
+    const wf = workflows.map(workflowToDiscover);
+    const pr = prompts.map((item, index) =>
+      promptToDiscover(item, PROMPT_TINTS[index % PROMPT_TINTS.length]),
+    );
+
+    let mixed = [...wf, ...pr];
+
+    if (kind === "工作流") mixed = mixed.filter((item) => item.kind === "工作流");
+    if (kind === "提示词") mixed = mixed.filter((item) => item.kind === "提示词");
+
+    mixed = mixed.filter((item) => item.tags.includes(style));
+
+    if (sort === "最新") mixed = [...mixed].reverse();
+    if (sort === "热门") {
+      mixed = [...mixed].sort((a, b) => {
+        const av = Number.parseFloat((a.stats || "0").replace("k", "")) || 0;
+        const bv = Number.parseFloat((b.stats || "0").replace("k", "")) || 0;
+        return bv - av;
+      });
+    }
+
+    return mixed;
+  }, [kind, sort, style]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="mx-auto w-full max-w-[1440px] space-y-6 px-6 py-4 md:px-10 md:py-4">
+      <DiscoverBanner />
+
+      <DiscoverFilters
+        sort={sort}
+        onSortChange={setSort}
+        kind={kind}
+        onKindChange={setKind}
+        style={style}
+        onStyleChange={setStyle}
+      />
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {feed.map((item) => (
+          <DiscoverCard key={`${item.kind}-${item.title}`} {...item} />
+        ))}
+      </div>
     </div>
   );
 }
