@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { FaGithub } from "react-icons/fa";
 
 const NAV = [
   { href: "/", label: "发现" },
@@ -10,6 +11,8 @@ const NAV = [
   { href: "/prompts", label: "提示词" },
   { href: "/models", label: "模型" },
 ] as const;
+
+const GITHUB_URL = "https://github.com/xiewg1987/neon_forge";
 
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
@@ -77,22 +80,15 @@ export function SiteHeader() {
               aria-disabled="true"
             />
           </label>
-          <button
-            type="button"
-            disabled
-            title="即将推出"
-            className="h-9 cursor-not-allowed rounded-[10px] bg-nf-accent px-3 text-sm font-bold text-nf-bg opacity-90 md:px-4"
+          <a
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-9 items-center gap-2 rounded-[10px] border border-nf-border bg-nf-card px-3.5 text-sm font-medium text-nf-text transition-colors hover:border-[#3F3F4A]"
           >
-            上传
-          </button>
-          <button
-            type="button"
-            disabled
-            title="即将推出"
-            className="h-9 cursor-not-allowed rounded-[10px] border border-nf-border bg-transparent px-3 text-sm font-medium text-nf-text md:px-3.5"
-          >
-            登录
-          </button>
+            <FaGithub size={16} aria-hidden />
+            GitHub
+          </a>
         </div>
       </div>
 

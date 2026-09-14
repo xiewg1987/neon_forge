@@ -1,5 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FaGithub } from "react-icons/fa";
+import { FiArrowUpRight } from "react-icons/fi";
+
+const GITHUB_URL = "https://github.com/xiewg1987/neon_forge";
 
 export function DiscoverBanner() {
   return (
@@ -27,16 +31,17 @@ export function DiscoverBanner() {
               className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-nf-accent to-nf-lime px-5 py-3 text-sm font-bold text-nf-bg"
             >
               浏览精选
-              <span aria-hidden>↗</span>
+              <FiArrowUpRight size={16} aria-hidden />
             </Link>
-            <button
-              type="button"
-              disabled
-              title="即将推出"
-              className="rounded-full border border-slate-500 bg-nf-bg/35 px-[18px] py-3 text-sm font-medium text-nf-text opacity-80"
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-slate-500 bg-nf-bg/35 px-[18px] py-3 text-sm font-medium text-nf-text transition-colors hover:border-nf-muted"
             >
-              上传工作流
-            </button>
+              <FaGithub size={16} aria-hidden />
+              在 GitHub 查看
+            </a>
             <button
               type="button"
               disabled

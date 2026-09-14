@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FiDownload } from "react-icons/fi";
 import type { WorkflowItem } from "@/lib/data/workflows";
 import type { PromptItem } from "@/lib/data/prompts";
 
@@ -54,7 +55,10 @@ export function DiscoverCard({
         </div>
         <div className="flex items-center justify-between text-[12px] text-nf-muted">
           <span>{author}</span>
-          <span>↓ {stats}</span>
+          <span className="inline-flex items-center gap-1">
+            <FiDownload size={12} aria-hidden />
+            {stats}
+          </span>
         </div>
       </div>
     </Link>
