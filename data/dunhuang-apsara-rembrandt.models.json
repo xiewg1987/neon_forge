@@ -1,0 +1,76 @@
+{
+  "z_image_turbo_int8_convrot.safetensors": {
+    "kind": "unet",
+    "source": "huggingface",
+    "repo": "Comfy-Org/z_image_turbo",
+    "comfy_dir": "models/diffusion_models",
+    "page": "https://huggingface.co/Comfy-Org/z_image_turbo",
+    "download": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/diffusion_models/z_image_turbo_int8_convrot.safetensors",
+    "note": "Z-Image Turbo INT8 Convrot，约 6.2GB"
+  },
+  "qwen_3_4b.safetensors": {
+    "kind": "clip",
+    "source": "huggingface",
+    "repo": "Comfy-Org/z_image_turbo",
+    "comfy_dir": "models/text_encoders",
+    "clip_type": "lumina2",
+    "page": "https://huggingface.co/Comfy-Org/z_image_turbo",
+    "download": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b.safetensors",
+    "note": "CLIPLoader 类型选 lumina2；约 8GB"
+  },
+  "z_image_turbo.safetensors": {
+    "kind": "vae",
+    "source": "huggingface",
+    "repo": "Comfy-Org/z_image_turbo",
+    "comfy_dir": "models/vae",
+    "page": "https://huggingface.co/Comfy-Org/z_image_turbo",
+    "download": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/vae/ae.safetensors",
+    "official_filename": "ae.safetensors",
+    "note": "工作流 VAE 下拉显示为 z_image_turbo.safetensors；官方 Comfy 包文件名是 ae.safetensors。下载后可重命名为 z_image_turbo.safetensors，或改节点选 ae.safetensors"
+  },
+  "Velatrix.safetensors": {
+    "kind": "lora",
+    "source": "civitai",
+    "comfy_dir": "models/loras",
+    "weight_in_workflow": 0.65,
+    "trigger": "cinelightX, velatrix",
+    "model_id": 2595570,
+    "page": "https://civitai.com/models/2595570/cinematic-portrait-lighting-lora-zimg-turbo-sdxl",
+    "download": "",
+    "version_hint": "打开 page，选 V2 Zit，下载文件须为 Velatrix.safetensors（触发词 cinelightX / velatrix）",
+    "note": "电影肖像光影 LoRA（ZIT）"
+  },
+  "skin texture style zib v2.1.safetensors": {
+    "kind": "lora",
+    "source": "civitai",
+    "comfy_dir": "models/loras",
+    "weight_in_workflow": 0.2,
+    "model_id": 580857,
+    "model_version_id": 2965913,
+    "page": "https://civitai.com/models/580857/realistic-skin-texture-style-detailed-skin-xl-sd15-f1d-pony-illu-zit-zib?modelVersionId=2965913",
+    "download": "https://civitai.com/api/download/models/2965913",
+    "note": "Skin Texture ZBase v2.1；确认版本名含 ZBase / zib v2.1"
+  },
+  "888_DunHuang_ZIB.safetensors": {
+    "kind": "lora",
+    "source": "civitai",
+    "comfy_dir": "models/loras",
+    "weight_in_workflow": 0.4,
+    "model_id": 626922,
+    "page": "https://civitai.com/models/626922/888dunhuangmuralsstyle",
+    "download": "",
+    "version_hint": "页面选 ZIB_V1.0（不要下成 ZIT / Turbo 版 888_DunHuangStyle_ZIT.safetensors）",
+    "note": "敦煌壁画风格；ZIB 版文件名应为 888_DunHuang_ZIB.safetensors。Civitai 常需登录才能直链，download 留空时用 page"
+  },
+  "rim_lighting_slider.safetensors": {
+    "kind": "lora",
+    "source": "civitai",
+    "comfy_dir": "models/loras",
+    "weight_in_workflow": 0.9,
+    "model_id": 2240056,
+    "model_version_id": 2521689,
+    "page": "https://civitai.com/models/2240056/rim-lighting-slider",
+    "download": "https://civitai.com/api/download/models/2521689",
+    "note": "轮廓光滑条；本工作流节点常旁路，多数变体建议关闭"
+  }
+}
