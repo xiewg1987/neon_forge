@@ -4,7 +4,14 @@ import { useMemo, useState, type ReactNode } from "react";
 import { StyleChips } from "@/components/filters/StyleChips";
 import type { StyleFilter } from "@/lib/data/styles";
 
-type FilterableListProps<T extends { id: string; style: string }> = {
+type StyleAware = {
+  style: string;
+  styles_alt?: string[];
+  id?: string;
+  slug?: string;
+};
+
+type FilterableListProps<T extends StyleAware> = {
   title: string;
   subtitle: string;
   items: T[];
@@ -14,7 +21,17 @@ type FilterableListProps<T extends { id: string; style: string }> = {
   defaultStyle?: StyleFilter;
 };
 
-export function FilterableList<T extends { id: string; style: string }>({
+function itemKey<T extends StyleAware>(item: T, index: number): string {
+  return item.id || item.slug || String(index);
+}
+
+function matchesStyle<T extends StyleAware>(item: T, style: StyleFilter): boolean {
+  if (style === "全部") return true;
+  if (item.style === style) return true;
+  return Boolean(item.styles_alt?.includes(style));
+}
+
+export function FilterableList<T extends StyleAware>({
   title,
   subtitle,
   items,
@@ -26,8 +43,7 @@ export function FilterableList<T extends { id: string; style: string }>({
   const [style, setStyle] = useState<StyleFilter>(defaultStyle);
 
   const filtered = useMemo(() => {
-    if (style === "全部") return items;
-    return items.filter((item) => item.style === style);
+    return items.filter((item) => matchesStyle(item, style));
   }, [items, style]);
 
   return (
@@ -40,11 +56,15 @@ export function FilterableList<T extends { id: string; style: string }>({
       {extraFilters ? <div className="mb-3">{extraFilters}</div> : null}
       <StyleChips value={style} onChange={setStyle} className="mb-8" />
 
-      <div className={gridClassName}>
-        {filtered.map((item) => (
-          <div key={item.id}>{renderItem(item)}</div>
-        ))}
-      </div>
+      {filtered.length === 0 ? (
+        <p className="text-sm text-nf-muted">该风格下暂无条目。可切换筛选或补充 content 下的 MD。</p>
+      ) : (
+        <div className={gridClassName}>
+          {filtered.map((item, index) => (
+            <div key={itemKey(item, index)}>{renderItem(item)}</div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

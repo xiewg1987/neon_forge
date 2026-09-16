@@ -22,6 +22,8 @@ export {
   parseMarkdown,
 } from "./parse";
 
+export { coverTintForSlug } from "./cover";
+
 export { getContentDir, getContentRoot, workflowFilePath } from "./paths";
 
 export {
