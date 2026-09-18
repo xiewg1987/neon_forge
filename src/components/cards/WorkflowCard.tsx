@@ -16,16 +16,19 @@ export function WorkflowCard({ item }: { item: WorkflowListItem }) {
       prefetch
       className="block overflow-hidden rounded-card border border-nf-border bg-nf-card transition hover:border-nf-accent/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nf-accent"
     >
-      <div className="relative h-44 w-full" style={{ backgroundColor: tint }}>
+      <div className="relative w-full" style={{ backgroundColor: tint }}>
         {item.cover ? (
           <Image
             src={item.cover}
             alt=""
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            width={1024}
+            height={1024}
+            className="h-auto w-full"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
-        ) : null}
+        ) : (
+          <div className="aspect-[4/5] w-full" aria-hidden />
+        )}
         <span className="absolute bottom-3 right-3 rounded-full bg-nf-bg px-2 py-1 text-[11px] font-bold text-nf-lime">
           工作流
         </span>

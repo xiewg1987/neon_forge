@@ -10,7 +10,8 @@ export function WorkflowsBrowser({ items }: { items: WorkflowListItem[] }) {
       title="工作流"
       subtitle="从 content/workflows 读取的 ComfyUI 图，按风格逛"
       items={items}
-      gridClassName="grid grid-cols-1 gap-5 md:grid-cols-2"
+      gridClassName="columns-1 gap-5 sm:columns-2 lg:columns-4"
+      itemClassName="mb-5 break-inside-avoid"
       renderItem={(item) => <WorkflowCard item={item} />}
     />
   );

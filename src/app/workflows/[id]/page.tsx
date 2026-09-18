@@ -83,20 +83,21 @@ export default async function WorkflowDetailPage({ params }: PageProps) {
       <div className="grid gap-6 lg:grid-cols-12">
         <section className="space-y-4 lg:col-span-7">
           <div
-            className="relative h-[280px] overflow-hidden rounded-card border border-nf-border md:h-[420px]"
+            className="relative w-full overflow-hidden rounded-card border border-nf-border"
             style={{ backgroundColor: tint }}
           >
             {frontmatter.cover ? (
               <Image
                 src={frontmatter.cover}
                 alt=""
-                fill
-                className="object-cover"
+                width={1024}
+                height={1024}
+                className="h-auto w-full"
                 sizes="(max-width: 1024px) 100vw, 60vw"
                 priority
               />
             ) : (
-              <div className="flex h-full items-end p-6">
+              <div className="flex aspect-[4/5] w-full items-end p-6">
                 <p className="text-sm text-nf-muted">封面待上传 · cover 为空</p>
               </div>
             )}

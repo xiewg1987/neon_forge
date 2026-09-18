@@ -28,6 +28,13 @@ html,
 body {
   background: var(--nf-bg);
   color: var(--nf-text);
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Legacy Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
 }
 
 body {

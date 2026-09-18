@@ -17,6 +17,7 @@ type FilterableListProps<T extends StyleAware> = {
   items: T[];
   renderItem: (item: T) => ReactNode;
   gridClassName: string;
+  itemClassName?: string;
   extraFilters?: ReactNode;
   defaultStyle?: StyleFilter;
 };
@@ -37,6 +38,7 @@ export function FilterableList<T extends StyleAware>({
   items,
   renderItem,
   gridClassName,
+  itemClassName,
   extraFilters,
   defaultStyle = "全部",
 }: FilterableListProps<T>) {
@@ -61,7 +63,9 @@ export function FilterableList<T extends StyleAware>({
       ) : (
         <div className={gridClassName}>
           {filtered.map((item, index) => (
-            <div key={itemKey(item, index)}>{renderItem(item)}</div>
+            <div key={itemKey(item, index)} className={itemClassName}>
+              {renderItem(item)}
+            </div>
           ))}
         </div>
       )}
